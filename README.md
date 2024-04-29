@@ -35,4 +35,4 @@ Ao final deve se exibir uma mensagem:
 O projeto foi desenvolvido utilizando html, css e javascript e foi desenvolvido como extra uma interface visual e a saída apresentada em tela.
 Ainda foi acrescentada uma pequena validação de campos.
 
-O projeto pode ser visto em funcionamento [aqui](https://davi-bernardojr.github.io/desafioDIO/)
+O projeto pode ser visto em funcionamento [aqui](https://davi-bernardojr.github.io/desafioDIO2/)
