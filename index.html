@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body {
+    background-color: #00001a;
+    color: #fff;
+    font-size: 24px;
+  }
+
+  input,
+  select,
+  button,
+  label {
+    font-size: 24px;
+    padding: 5px;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .btn {
+    margin-top: 20px;
+    flex-direction: row;
+    gap: 15px;
+  }
+
+  .result {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    width: 800px;
+    font-size: 48px;
+    font-style: italic;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <h1>Calcuar Partidas do Herói</h1>
+    <div class="content">
+      <label>Vitórias do Herói</label>
+      <input type="number" min="1" id="hr_vitoria" />
+    </div>
+    <div class="content">
+      <label>Derrotas do Herói</label>
+      <input type="number" min="1" id="hr_derrotas" />
+    </div>
+    <div class="content btn">
+      <button onclick="calcularPartidas()">Calcular</button>
+    </div>
+    <div class="content result">
+    </div>
+  </div>
+  <script>
+
+    const classificacao = [
+      { min: 0, max: 10, classificacao: "Ferro" },
+      { min: 11, max: 20, classificacao: "Bronze" },
+      { min: 21, max: 50, classificacao: "Prata" },
+      { min: 51, max: 80, classificacao: "Ouro" },
+      { min: 81, max: 90, classificacao: "Diamante" },
+      { min: 91, max: 100, classificacao: "Lendário" },
+      { min: 101, max: 0, classificacao: "Imortal" }
+    ]
+
+    let hr_vit = document.querySelector('#hr_vitoria')
+    let hr_der = document.querySelector('#hr_derrotas')
+    let retorno = document.querySelector(`.result`)
+
+    const getNivel = (vit) => {
+      for (let x = 0; x < classificacao.length; x++) {
+        if ((vit <= classificacao[x].max) & (x == 0)) {
+          return classificacao[x].classificacao
+        }
+        if ((vit >= classificacao[x].min) & (vit > classificacao[x].max) & (x == classificacao.length - 1)) {
+          return classificacao[x].classificacao
+        }
+        if ((vit >= classificacao[x].min) & (vit <= classificacao[x].max)) {
+          return classificacao[x].classificacao
+        }
+      }
+    }
+
+    const validarCampos = () => {
+      if (hr_vit.value == "") { return { status: false, msg: "Informe a quantidade de vitórias." } }
+      if (hr_der.value == "") { return { status: false, msg: "Informe a quantidade de derrotas" } }
+      return true
+    }
+
+    const calcularPartidas = () => {
+      let vitorias = parseInt(hr_vit.value) - parseInt(hr_der.value)
+      let nivel = getNivel(vitorias)
+      if (validarCampos() === true) {
+        retorno.innerHTML = `O Herói tem de saldo de ${vitorias} vitórias está no nível de ${nivel}`
+      } else {
+        let res = validarCampos()
+        res.status ? "" : alert(res.msg)
+      }
+    }
+  </script>
+</body>
+
+</html>
